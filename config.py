@@ -3,22 +3,22 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config(object):
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'fdsfds'
-    BLOB_ACCOUNT = os.environ.get('BLOB_ACCOUNT') or 'giangudacityprojectone'
-    BLOB_STORAGE_KEY = os.environ.get('BLOB_STORAGE_KEY') or 'rwW6XIiQqbDmnIbHjWMCe8PtPnut32bihvF3OMjYaaYMW7MlSdtTGmSDeAkbDDgQoucnAIJbFhiP+AStsQAqsQ=='
-    BLOB_CONTAINER = os.environ.get('BLOB_CONTAINER') or 'images'
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    BLOB_ACCOUNT = os.environ.get('BLOB_ACCOUNT')
+    BLOB_STORAGE_KEY = os.environ.get('BLOB_STORAGE_KEY')
+    BLOB_CONTAINER = os.environ.get('BLOB_CONTAINER')
 
-    SQL_SERVER = os.environ.get('SQL_SERVER') or 'giang-udacity-project-one.database.windows.net'
-    SQL_DATABASE = os.environ.get('SQL_DATABASE') or 'giang-udacity-project-one'
-    SQL_USER_NAME = os.environ.get('SQL_USER_NAME') or 'admin123'
-    SQL_PASSWORD = os.environ.get('SQL_PASSWORD') or 'Shyvana@0123'
+    SQL_SERVER = os.environ.get('SQL_SERVER')
+    SQL_DATABASE = os.environ.get('SQL_DATABASE')
+    SQL_USER_NAME = os.environ.get('SQL_USER_NAME')
+    SQL_PASSWORD = os.environ.get('SQL_PASSWORD')
     # Below URI may need some adjustments for driver version, based on your OS, if running locally
     SQLALCHEMY_DATABASE_URI = 'mssql+pyodbc://' + SQL_USER_NAME + '@' + SQL_SERVER + ':' + SQL_PASSWORD + '@' + SQL_SERVER + ':1433/' + SQL_DATABASE  + '?driver=ODBC+Driver+17+for+SQL+Server'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     ### Info for MS Authentication ###
     ### As adapted from: https://github.com/Azure-Samples/ms-identity-python-webapp ###
-    CLIENT_SECRET = "QVy8Q~.iFThYUxWCL.Dm_VNH8vU~pwddlowOTchJ"
+    CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
     # In your production app, Microsoft recommends you to use other ways to store your secret,
     # such as KeyVault, or environment variable as described in Flask's documentation here:
     # https://flask.palletsprojects.com/en/1.1.x/config/#configuring-from-environment-variables
