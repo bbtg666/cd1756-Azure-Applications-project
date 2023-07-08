@@ -92,6 +92,8 @@ def authorized():
         if "error" in result:
             return render_template("auth_error.html", result=result)
         session["user"] = result.get("id_token_claims")
+        # Note: In a real app, we'd use the 'name' property from session["user"] below
+        # Here, we'll use the admin username for anyone who is authenticated by MS
         user = User.query.filter_by(username="admin").first()
         login_user(user)
         _save_cache(cache)
@@ -105,17 +107,18 @@ def logout():
         return redirect(
             Config.AUTHORITY + "/oauth2/v2.0/logout" +
             "?post_logout_redirect_uri=" + url_for("login", _external=True))
+    
     return redirect(url_for('login'))
 
 def _load_cache():
     cache = msal.SerializableTokenCache()
-    if session.get('token_cache'):
-        cache.deserialize(session['token_cache'])
+    if session.get('cache'):
+        cache.deserialize(session['cache'])
     return cache
 
 def _save_cache(cache):
     if cache.has_state_changed:
-        session['token_cache'] = cache.serialize()
+        session['cache'] = cache.serialize()
 
 def _build_msal_app(cache=None, authority=None):
     return msal.ConfidentialClientApplication(
